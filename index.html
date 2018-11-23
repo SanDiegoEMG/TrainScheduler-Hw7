@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+    <title>Firebase Joy</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+
+    <section class="container container-fluid">
+        <div class="jumbotron">
+            <h3> Learning about Local Storage </h3>
+            <h6>This feature is available through a users browser memory</h6>
+            <p id="fact">5 mb generally set aside</p>
+        </div>
+
+        <!-- Card to display train data-->
+        <div class="card">
+            <div class="card-header">
+                <p class="smaller-header">Current Train Schedules</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Train Name</th>
+                                <th scope="col">Destination</th>
+                                <th scope="col">Frequency</th>
+                                <th scope="col">Next Arrival</th>
+                                <th scope="col">Minutes Away</th>
+                            </tr>
+                        </thead>
+                        <tbody id="view-trains">
+                            <tr>
+                                <td id="namedisplay"></td>
+                                <td id="destinationdisplay"></td>
+                                <td id="timedisplay"></td>
+                                <td id="frequencydisplay"></td>
+                                <td id="minutesaway"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card to input new train data -->
+        <div class="card">
+            <div class="card-header">
+                <p class="smaller-header">Add New Train Info</p>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="train-name">Train Name</label>
+                        <input type="text" class="form-control" id="train-name" placeholder="name of train">
+                    </div>
+                    <div class="form-group">
+                        <label for="train-destination">Destination</label>
+                        <input type="text" class="form-control" id="train-destination" placeholder="destination of train">
+                    </div>
+                    <div class="form-group">
+                        <label for="train-first-time">First Train Time (HH:mm am/pm)</label>
+                        <input type="time" class="form-control" id="train-first-time" placeholder="time of first train">
+                    </div>
+                    <div class="form-group">
+                        <label for="train-first-time">Frequency (min)</label>
+                        <input type="number" class="form-control" id="train-frequency" placeholder="how often this train leaves">
+                    </div>
+                    <div class="form-group"><button id="submit-button" class="btn btn-outline-secondary">Submit</button></div>
+            </div>
+    </section>
+
+    
+
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBkmSI7kHcwQxpnuKit03vzE8oQX7x0Rus",
+            authDomain: "bootcamp-demo-9757c.firebaseapp.com",
+            databaseURL: "https://bootcamp-demo-9757c.firebaseio.com",
+            projectId: "bootcamp-demo-9757c",
+            storageBucket: "bootcamp-demo-9757c.appspot.com",
+            messagingSenderId: "1082614291676"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>
