@@ -29,6 +29,11 @@ $(document).ready(function () {
 
         $("#view-trains").append(newRow);
 
+        localStorage.setItem("name", name);
+        localStorage.setItem("destination", dest);
+        localStorage.setItem("firstTime", firstTime);
+        localStorage.setItem("freq", freq);
+
         // database.ref().set({
         //     name: name,
         //     dest: destination,
