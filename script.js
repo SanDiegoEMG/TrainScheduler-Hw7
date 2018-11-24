@@ -1,5 +1,5 @@
 
-  //Creates a variable that allows us to 'call' the database
+//Creates a variable that allows us to 'call' the database
 var database = firebase.database();
 
 $(document).ready(function () {
@@ -12,6 +12,15 @@ $(document).ready(function () {
     var freq = 0;
     var minsAway = 0;
     var nextArrival = 0;
+    var myArr = [];
+    var newTrain = [];
+
+    function renderTrains(myArr) {
+        $("#viewtrains").empty(); //empty out html
+
+
+    }
+
 
 
     $("#submit-button").on("click", function () {
@@ -22,37 +31,50 @@ $(document).ready(function () {
         firstTime = $("#train-first-time").val().trim()
         freq = $("#train-frequency").val().trim()
 
+        newTrain = [name, dest, firstTime, freq];
+        myArr.push(newTrain);
+        console.log(myArr);
 
-        var newRow = "<tr><td id='namedisplay'>"+ name + "</td><td id='destinationdisplay'>" + dest + "</td><td id='timedisplay'>" + freq + "</td><td id='frequencydisplay'>" + nextArrival + "</td><td>" + minsAway + "</td></tr>"
+        // for (var i=0; i<myArr.length; i++) {
+        //     var newTrainArr = [name, dest, firstTime, freq];
+        //     localStorage.setItem("newTrain", newTrainArr);
+        //     console.log(newTrainArr);
+        // }
 
-        console.log(firstTime);
 
-        $("#view-trains").append(newRow);
+        // var newRow = $("<tr></tr>");
+        // var rowName = "<td>" + name + "</td>";
+        // var rowDestDisp = "<td>" + dest + "</td>";
+        // var rowFreq = "<td>" + freq + "</td>";
+        // var rowNextArrival = "<td>" + nextArrival + "</td>";
+        // var rowMinsAway = "<td>" + minsAway + "</td>";
 
-        localStorage.setItem("name", name);
-        localStorage.setItem("destination", dest);
-        localStorage.setItem("firstTime", firstTime);
-        localStorage.setItem("freq", freq);
+        // newRow.append(rowName, rowDestDisp, rowFreq, rowNextArrival, rowMinsAway);
+
+        // $("#view-trains").append(newRow);
+
+        // console.log(newRow);
+
 
         // database.ref().set({
-        //     name: name,
-        //     dest: destination,
-        //     firstTime: firstTime,
-        //     freq: frequency, 
+        //     namedb: name,
+        //     destdb: destination,
+        //     firstTimedb: firstTime,
+        //     freqdb: frequency, 
         // })
 
         resetForm()
 
     })
 
-     
-    
-    
-    
-    
-    
+
+
+
+
+
+
     //returns form fields to default placeholder
-   function resetForm() {
+    function resetForm() {
         $("#train-name").val("");
         $("#train-destination").val("");
         $("#train-first-time").val("")
