@@ -69,7 +69,7 @@ $(document).ready(function () {
         var newRow = $("<tr>").append(
             $("<td>").text(trainName),
             $("<td>").text(trainDest),
-            $("<td>").text(trainFreq),
+            $("<td>").text(trainFreq + " mins"),
             $("<td>").text(trainNext),
             $("<td>").text(trainWait),
         );
