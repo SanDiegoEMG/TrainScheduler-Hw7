@@ -1,19 +1,7 @@
-
 //Creates a variable that allows us to 'call' the database
 var database = firebase.database();
 
 $(document).ready(function () {
-
-
-    // variables to store the values from the form
-    // var name = "";
-    // var dest = "";
-    // var firstTime = 0;
-    // var freq = 0;
-    // var minsAway = 0;
-    // var nextArrival = 0;
-    // var myArr = [];
-
 
     $("#submit-button").on("click", function (event) {
         event.preventDefault();
@@ -24,27 +12,48 @@ $(document).ready(function () {
         var firstTimeNew = $("#train-first-time").val().trim()
         var freqNew = $("#train-frequency").val().trim()
 
+
+        // moment time work
+        var convertFirstTime = moment(firstTimeNew, "HH:mm").subtract(1, "years");
+        console.log("convert input field = " + convertFirstTime)
+
+        var currentTime = moment();
+        console.log(moment(currentTime).format("hh:mm") + " currentTime = formatted moment");
+
+        var timeDif = moment().diff(moment(convertFirstTime), "minutes");
+        console.log("Dif in cFT and m() in minutes = " + timeDif);
+
+        var timeRemain = timeDif % freqNew;
+        console.log("timeRemain is timeDif % freqNew = " + timeRemain);
+
+        var minTilTrain = freqNew - timeRemain;
+        console.log("mins til train = " + minTilTrain);
+
+        var nextOne = moment().add(minTilTrain, "minutes");
+
+        var nextTrain = moment(nextOne).format("hh:mm A");
+
+
+
         // create local 'temporary object' for holding input data
         var newTrain = {
             name: nameNew,
             dest: destNew,
             firstTime: firstTimeNew,
             freq: freqNew,
+            next: nextTrain,
+            wait: minTilTrain,
         };
+
         // upload new inputs to database
         database.ref().push(newTrain);
 
-        // check it out
-        console.log(newTrain.name);
-        console.log(newTrain.dest);
-        console.log(newTrain.firstTime);
-        console.log(newTrain.freqNew);
-
         resetForm()
-    })
+    });
 
 
     database.ref().on("child_added", function (childSnapshot) {
+
         console.log(childSnapshot.val());
 
         // Store everything into variables (again?!)
@@ -52,20 +61,17 @@ $(document).ready(function () {
         var trainDest = childSnapshot.val().dest;
         var trainFirstTime = childSnapshot.val().firstTime;
         var trainFreq = childSnapshot.val().freq;
+        var trainNext = childSnapshot.val().next;
+        var trainWait = childSnapshot.val().wait;
 
-        // Train data 
-        console.log(trainName);
-        console.log(trainDest);
-        console.log(trainFirstTime);
-        console.log(trainFreq);
 
         // Create the new row
         var newRow = $("<tr>").append(
             $("<td>").text(trainName),
             $("<td>").text(trainDest),
             $("<td>").text(trainFreq),
-            $("<td>").text(trainFirstTime),
-            $("<td>").text("train mins away"),
+            $("<td>").text(trainNext),
+            $("<td>").text(trainWait),
         );
 
         $("#view-trains").append(newRow);
