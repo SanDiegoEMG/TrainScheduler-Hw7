@@ -46,35 +46,35 @@ $(document).ready(function () {
         };
 
         // upload new inputs to database
-        database.ref().push(newTrain);
+        database.ref("/TrainBoard").push(newTrain);
 
         resetForm()
     });
 
 
-    database.ref().on("child_added", function (childSnapshot) {
+    database.ref("/TrainBoard").on("child_added", function (childSnapshot) {
 
         console.log(childSnapshot.val());
 
         // Store everything into variables (again?!)
         var trainName = childSnapshot.val().name;
         var trainDest = childSnapshot.val().dest;
-        var trainFirstTime = childSnapshot.val().firstTime;
         var trainFreq = childSnapshot.val().freq;
         var trainNext = childSnapshot.val().next;
         var trainWait = childSnapshot.val().wait;
 
 
         // Create the new row
-        var newRow = $("<tr>").append(
+        var tr = $("<tr>")
+        tr.append(
             $("<td>").text(trainName),
             $("<td>").text(trainDest),
-            $("<td>").text(trainFreq + " mins"),
+            $("<td>").text(trainFreq),
             $("<td>").text(trainNext),
             $("<td>").text(trainWait),
         );
 
-        $("#view-trains").append(newRow);
+        $("#view-trains").append(tr);
 
     });
 
